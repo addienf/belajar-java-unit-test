@@ -1,10 +1,14 @@
 package programmer.zaman.now.test;
 
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.condition.DisabledOnOs;
+import org.junit.jupiter.api.condition.EnabledOnOs;
+import org.junit.jupiter.api.condition.OS;
 import org.opentest4j.TestAbortedException;
 import programmer.zaman.now.test.generator.SimpleDisplayNameGenerator;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assumptions.*;
 
 @DisplayNameGeneration(value = SimpleDisplayNameGenerator.class)
 public class CalculatorTest {
@@ -62,7 +66,14 @@ public class CalculatorTest {
         if (!"DEV".equals(profile)){
             throw new TestAbortedException("Test dibatalkan karena bukan DEV");
         }
+
+        //Unit test untuk DEV
     }
 
-    //Unit test untuk DEV
+    @Test
+    public void testAssumption(){
+        assumeTrue("DEV".equals(System.getenv("PROFILE")));
+
+        //Dev Unit Test
+    }
 }
